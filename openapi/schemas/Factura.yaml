@@ -1,0 +1,48 @@
+Factura:
+    type: object
+    description: Documento que refleja un conjunto de trabajos realizados en un vehiculo
+    properties:
+        id:
+            description: Id Factura
+            readOnly: true
+            type: integer
+            format: int32
+        userId:
+            description: user Id
+            readOnly: true
+            type: integer
+            format: int32
+        vehiculoId:
+            description: Id vehiculo
+            readOnly: true
+            type: integer
+            format: int32
+        fechaEmision:
+            description: Fecha de creacion de la factura
+            readOnly: true
+            type: string
+            format: date
+            #El formato date tiene un patron "YYYY-MM-DD"
+        importe:
+            description: Importe total
+            readOnly: true
+            type: number
+        importeIVA:
+            description: Importe con IVA
+            readOnly: true
+            type: number
+        #links:
+            #description: Listado de trabajos
+            #type: array
+            #items:
+                #$ref: './Link.yaml#/Link'
+        example:
+            id:34212
+            userId: 23
+            vehiculoId: 1234
+            fechaEmision: "2021-11-21"
+            importe: 590.45
+            importeIVA: 714.45
+            #links:
+            
+            
