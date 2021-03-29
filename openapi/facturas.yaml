@@ -2,25 +2,67 @@ openapi: 3.0.3
 info:
   title: "Facturas AOS"
   description: "Especificación facturas para la asignatura AOS"
-  contact:
-    name: "Rubén Gago"
-    email: "r.gago@alumnos.upm.es"
   version: "v1"
+servers:
+  - url: '{schema}://{server}:{port}/{basePath}'
+    description: Servidor local
+    variables:
+      schema:
+        description: Esquema
+        default: http
+        enum:
+          - http
+          - https
+      server:
+        description: Nombre del servidor
+        default: 127.0.0.1
+      port:
+        description: Número de puerto
+        default: '80'
+      basePath:
+        description: Ruta base
+        default: api/v1
+tags:
+  - name: '🧾 Factura'
+    description: Factura con el conjunto de trabajos realizados en un vehiculo
 paths:
   /factura:
-    get:
-      description: "Devuelve las facturas de un taller"
+    post:
+      tags: [ '🧾 Factura' ]
+      summary: Genera la factura de un usuario
+      description: Genera la factura de un usuario previamente identificado.
+      operationId: upm_aos_factura_post
+      # requestBody:
+      #  description: El cuerpo de la petición está vacío
       responses:
-        "200":
-          description: Lista de facturas
+        '201':
+          description: Factura
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/factura'
-
-components:
-  schemas:
-    factura:
-      
+                $ref: '#/components/schemas/Factura'
+        '404':
+          $ref: '#/components/responses/Response_404'
+  '/factura/{facturaId}':
+    parameters:
+      - $ref: '#/components/parameters/facturaId'
+    get:
+      tags: [ '🧾 Factura' ]
+      summary: Obtiene una factura
+      description: Obtiene una factura identificada por su facturaID.
+      operationId: upm_aos_factura_get
+      responses:
+        '200':
+          description: Factura
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '404':
+          $ref: '#/components/responses/Response_404'
