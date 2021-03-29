@@ -7,12 +7,16 @@ A tener en cuenta para el diseño de la API:
 
 Para crear una imagen docker de Swagger editor:
 
-1. Abrir docker
+1. Abrir la aplicación de docker para escritorio
 2. Pull de la imagen:
 	docker pull swaggerapi/swagger-editor
 3. Run contenedor:
 	docker run -d -p 80:8080 swaggerapi/swagger-editor
 4. Abrir el navegador y escribir localhost o localhost:80
+
+#Se pueden omitir los pasos 2 y 3 lanzando el siguiente script en la consola donde se utilice Docker. Este script se encuentra
+en el directorio root del proyecto.
+	./docker_swagger.sh
 
 Para parar la imagen:
 1. docker ps
