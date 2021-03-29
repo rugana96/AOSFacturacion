@@ -1,2 +1,26 @@
-//TODO
-Especificacion openAPI de facturas de un taller
+openapi: 3.0.3
+info:
+  title: "Facturas AOS"
+  description: "Especificación facturas para la asignatura AOS"
+  contact:
+    name: "Rubén Gago"
+    email: "r.gago@alumnos.upm.es"
+  version: "v1"
+paths:
+  /factura:
+    get:
+      description: "Devuelve las facturas de un taller"
+      responses:
+        "200":
+          description: Lista de facturas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/factura'
+
+components:
+  schemas:
+    factura:
+      
