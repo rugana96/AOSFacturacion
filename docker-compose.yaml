@@ -12,7 +12,7 @@ services:
     backend:
         image: stoplight/prism:4
         container_name: comandas_mock
-        command: mock --cors -h 0.0.0.0 "/aos/comandas.yaml"
+        command: mock --cors -h 0.0.0.0 "/aos/facturas.yaml"
         ports:
           - 4010:4010
         volumes:
