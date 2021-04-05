@@ -2,7 +2,7 @@ version: "3"
 services:
     proxy:
         image: caddy
-        container_name: comandas_proxy
+        container_name: facturas_proxy
         volumes:
             - ./Caddyfile:/etc/caddy/Caddyfile
         ports:
@@ -11,7 +11,7 @@ services:
             - backend
     backend:
         image: stoplight/prism:4
-        container_name: comandas_mock
+        container_name: facturas_mock
         command: mock --cors -h 0.0.0.0 "/aos/facturas.yaml"
         ports:
           - 4010:4010
@@ -19,10 +19,10 @@ services:
             - ./openapi:/aos:ro
     frontend:
         image: swaggerapi/swagger-ui
-        container_name: comandas_ui
+        container_name: facturas_ui
         ports:
             - 8000:8080
         environment:
-            SWAGGER_JSON: /aos/comandas.yaml
+            SWAGGER_JSON: /aos/facturas.yaml
         volumes:
             - ./openapi:/aos:ro
