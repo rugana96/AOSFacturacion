@@ -27,6 +27,33 @@ tags:
     description: Factura con el conjunto de trabajos realizados en un vehiculo
 paths:
   /factura:
+    get:
+      tags:
+        - '🧾 Factura'
+      summary: Obtiene todas las facturas
+      operationId: upm_aos_facturas_cget
+      responses:
+        200:
+          description: Array de facturas
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comandas:
+                    description: array de facturas
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Factura'
+              examples:
+                facturasExamples:
+                  $ref: '#/components/examples/facturas'
+        404:
+          $ref: '#/components/responses/Response_404'
+    
     post:
       tags: [ '🧾 Factura' ]
       summary: Genera la factura de un usuario
@@ -46,12 +73,13 @@ paths:
                 $ref: '#/components/schemas/Factura'
         '404':
           $ref: '#/components/responses/Response_404'
-  '/factura/{facturaId}':
+          
+  /factura/{facturaId}:
     parameters:
       - $ref: '#/components/parameters/facturaId'
     get:
       tags: [ '🧾 Factura' ]
-      summary: Obtiene una factura
+      summary: Obtiene una factura por su ID
       description: Obtiene una factura identificada por su facturaID.
       operationId: upm_aos_factura_get
       responses:
@@ -66,3 +94,178 @@ paths:
                 $ref: '#/components/schemas/Factura'
         '404':
           $ref: '#/components/responses/Response_404'
+          
+  /factura/{userId}:
+    parameters:
+      - $ref: '#/components/parameters/userId'
+    get:
+      tags: [ '🧾 Factura' ]
+      summary: Obtiene todas las facturas de un usuario
+      description: Obtiene todas las facturas de un usuario por su userId
+      operationId: upm_aos_factura_uget
+      responses:
+        '200':
+          description: Factura
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '404':
+          $ref: '#/components/responses/Response_404'
+          
+  /factura/{vehiculoId}:
+    parameters:
+      - $ref: '#/components/parameters/vehiculoId'
+    get:
+      tags: [ '🧾 Factura' ]
+      summary: Obtiene todas las facturas de un vehiculo
+      description: Obtiene todas las facturas de un vehiculo por su vehiculoId
+      operationId: upm_aos_factura_vget
+      responses:
+        '200':
+          description: Factura
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '404':
+          $ref: '#/components/responses/Response_404'
+
+components:
+  schemas:
+    Factura:
+      $ref: './schemas/Factura.yaml#/Factura'
+                
+    HTTP_Problem:
+      $ref: './schemas/HTTP_Problem.yaml#/HTTP_Problem'
+      
+  headers:
+    ETag:
+      description: Entity Tag (identificador único proporcionado para validación de caché)
+      schema:
+        type: string
+        pattern: "[0-9a-f]*"
+        x-faker: random.uuid
+        example:
+          0242ac130003abs3
+    Location:
+      description: '`URI` del nuevo recurso'
+      schema:
+        type: string
+        format: url
+        x-faker: internet.url
+        example:
+          /api/v1/factura/5623
+    Allow:
+      description: Lista de métodos HTTP soportados
+      schema:
+        type: string
+      example:
+        GET,DELETE,PUT,OPTIONS
+        
+  parameters:
+    facturaId:
+      name: facturaId
+      in: path
+      description: ID de la factura
+      required: true
+      schema:
+        type: integer
+        pattern: ^\d+$
+    ifMatchParam:
+      name: If-Match
+      in: header
+      description: ETag del recurso que se desea modificar
+      required: true
+      schema:
+        type: string
+        pattern: "[0-9a-f]*"
+    vehiculoId:
+      name: vehiculoId
+      in: path
+      description: ID del vehiculo
+      required: true
+      schema:
+        type: integer
+        pattern: ^\d+$
+    userId:
+      name: userId
+      in: path
+      description: ID del cliente
+      required: true
+      schema:
+        type: integer
+        pattern: ^\d+$
+  
+  responses:
+    Response_404:
+      description: '`NOT FOUND`: recurso no disponible'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-404:
+              $ref: '#/components/examples/response-http-404'
+    Response_412:
+      description: '`PRECONDITION FAILED`: no se cumple alguna condición previa'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-412:
+              $ref: '#/components/examples/response-http-412'
+    Response_422:
+      description: '`UNPROCESSABLE ENTITY`: falta la referencia o las unidades'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-422:
+              $ref: '#/components/examples/response-http-422'
+              
+  examples:
+    facturas:
+      value:
+        - facturaId: 5623
+          userId: 21
+          vehiculoId: 67
+          fechaEmision: "2021-03-29"
+          importe: 234
+          iporteIVA: 283.14
+        - facturaId: 1345
+          userId: 12
+          vehiculoId: 15
+          fechaEmision: "2020-07-13"
+          importe: 567.94
+          iporteIVA: 723.50
+    response-http-404:
+      value:
+        type: https://httpstatuses.com/404
+        title: NOT FOUND
+        status: 404
+        detail: El recurso solicitado no está disponible...
+        instance: about:blank
+    response-http-412:
+      value:
+        type: https://httpstatuses.com/412
+        title: PRECONDITION FAILED
+        status: 412
+        detail: No se cumple alguna condición previa...
+        instance: about:blank
+    response-http-422:
+      value:
+        type: https://httpstatuses.com/422
+        title: UNPROCESSABLE ENTITY
+        status: 422
+        detail: Falta la referencia o las unidades...
+        instance: about:blank
+    
