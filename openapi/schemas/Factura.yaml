@@ -2,7 +2,7 @@ Factura:
     type: object
     description: Documento que refleja un conjunto de trabajos realizados en un vehiculo
     properties:
-        id:
+        idFactura:
             description: Id Factura
             readOnly: true
             type: integer
