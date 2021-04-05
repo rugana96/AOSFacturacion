@@ -98,50 +98,6 @@ paths:
   /factura/{userId}:
     parameters:
       - $ref: '#/components/parameters/userId'
-    get:
-      tags: [ '🧾 Factura' ]
-      summary: Obtiene todas las facturas de un usuario
-      description: Obtiene todas las facturas de un usuario por su userId
-      operationId: upm_aos_factura_uget
-      responses:
-        '200':
-          description: Factura
-          headers:
-            ETag:
-              $ref: '#/components/headers/ETag'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Factura'
-        '404':
-          $ref: '#/components/responses/Response_404'
-          
-  /factura/{vehiculoId}:
-    parameters:
-      - $ref: '#/components/parameters/vehiculoId'
-    get:
-      tags: [ '🧾 Factura' ]
-      summary: Obtiene todas las facturas de un vehiculo
-      description: Obtiene todas las facturas de un vehiculo por su vehiculoId
-      operationId: upm_aos_factura_vget
-      responses:
-        '200':
-          description: Factura
-          headers:
-            ETag:
-              $ref: '#/components/headers/ETag'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Factura'
-        '404':
-          $ref: '#/components/responses/Response_404'
-
-components:
-  schemas:
-    Factura:
-      $ref: './schemas/Factura.yaml#/Factura'
-                
     HTTP_Problem:
       $ref: './schemas/HTTP_Problem.yaml#/HTTP_Problem'
       
