@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: "Facturas AOS"
-  description: "Especificación facturas para la asignatura AOS"
+  description: "Especificacion facturas para la asignatura AOS"
   version: "v1"
 servers:
   - url: '{schema}://{server}:{port}/{basePath}'
@@ -95,9 +95,10 @@ paths:
         '404':
           $ref: '#/components/responses/Response_404'
           
-  /factura/{userId}:
-    parameters:
-      - $ref: '#/components/parameters/userId'
+components:
+  schemas:
+    Factura:
+      $ref: './schemas/Factura.yaml#/Factura'
     HTTP_Problem:
       $ref: './schemas/HTTP_Problem.yaml#/HTTP_Problem'
       
