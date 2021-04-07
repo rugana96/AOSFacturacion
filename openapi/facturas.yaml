@@ -333,12 +333,20 @@ components:
           fechaEmision: "2021-03-29"
           importe: 234
           iporteIVA: 283.14
+          links:
+            - href: api/v1/trabajo/1111
+              rel: trabajo
+            - href: api/v1/trabajo/1112
+              rel: trabajo
         - facturaId: 1345
           userId: 12
           vehiculoId: 15
           fechaEmision: "2020-07-13"
           importe: 567.94
           iporteIVA: 723.50
+          links:
+            - href: api/v1/trabajo/1113
+              rel: trabajo
     response-http-404:
       value:
         type: https://httpstatuses.com/404
