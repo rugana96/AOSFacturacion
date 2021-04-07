@@ -37,7 +37,7 @@ Factura:
             #items:
                 #$ref: './Link.yaml#/Link'
         example:
-            id:34212
+            facturaId: 34212
             userId: 23
             vehiculoId: 1234
             fechaEmision: "2021-11-21"
