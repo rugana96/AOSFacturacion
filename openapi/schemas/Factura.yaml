@@ -31,11 +31,11 @@ Factura:
             description: Importe con IVA
             readOnly: true
             type: number
-        #links:
-            #description: Listado de trabajos
-            #type: array
-            #items:
-                #$ref: './Link.yaml#/Link'
+        links:
+            description: Listado de trabajos
+            type: array
+            items:
+                $ref: './Link.yaml#/Link'
         example:
             facturaId: 34212
             userId: 23
@@ -43,6 +43,13 @@ Factura:
             fechaEmision: "2021-11-21"
             importe: 590.45
             importeIVA: 714.45
-            #links:
+            links:
+                # - href: /api/v1/trabajo/iDTrabajo
+                - href: /api/v1/trabajo/1111
+                  rel: trabajo
+                - href: /api/v1/trabajo/1112
+                  rel: trabajo
+                - href: /api/v1/trabajo/1113
+                  rel: trabajo
             
             
