@@ -28,10 +28,9 @@ tags:
 paths:
   /factura:
     get:
-      tags:
-        - '🧾 Factura'
+      tags: [ '🧾 Factura' ]
       summary: Obtiene todas las facturas
-      operationId: upm_aos_facturas_cget
+      operationId: upm_aos_facturas_get
       responses:
         200:
           description: Array de facturas
@@ -44,7 +43,7 @@ paths:
                 type: object
                 properties:
                   comandas:
-                    description: array de facturas
+                    description: Array de facturas
                     type: array
                     items:
                       $ref: '#/components/schemas/Factura'
@@ -53,7 +52,6 @@ paths:
                   $ref: '#/components/examples/facturas'
         404:
           $ref: '#/components/responses/Response_404'
-    
     post:
       tags: [ '🧾 Factura' ]
       summary: Genera la factura de un usuario
@@ -73,6 +71,17 @@ paths:
                 $ref: '#/components/schemas/Factura'
         '404':
           $ref: '#/components/responses/Response_404'
+    options:
+      tags: [ '🧾 Factura' ]
+      summary: Proporciona la lista de los métodos HTTP soportados.
+      description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
+      operationId: upm_aos_factura_options
+      responses:
+        '204':
+          description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
           
   /factura/{facturaId}:
     parameters:
@@ -81,7 +90,7 @@ paths:
       tags: [ '🧾 Factura' ]
       summary: Obtiene una factura por su ID
       description: Obtiene una factura identificada por su facturaID.
-      operationId: upm_aos_factura_get
+      operationId: upm_aos_factura_fget
       responses:
         '200':
           description: Factura
@@ -94,6 +103,47 @@ paths:
                 $ref: '#/components/schemas/Factura'
         '404':
           $ref: '#/components/responses/Response_404'
+    delete:
+      tags: [ '🧾 Factura' ]
+      summary: Elimina una factura.
+      description: Elimina la factura identificada por facturaId
+      operationId: upm_aos_factura_delete
+      responses:
+        '204':
+          description: Factura eliminada &lt;Cuerpo de la respuesta vacío&gt;
+        '404':
+          $ref: '#/components/responses/Response_404'
+    put:
+      tags: [ '🧾 Factura' ]
+      summary: Modifica la factura.
+      description: Actualiza la factura identificada por facturaId.
+      operationId: upm_aos_factura_put
+      parameters:
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        $ref: '#/components/requestBodies/facturaRB'
+      responses:
+        '200':
+          description: '`OK`: la factura ha sido modificada'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factura'
+        '404':
+          $ref: '#/components/responses/Response_404'
+        '412':
+          $ref: '#/components/responses/Response_412'
+    options:
+      tags: [ '🧾 Factura' ]
+      summary: Proporciona la lista de los métodos HTTP soportados.
+      description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
+      operationId: upm_aos_factura_foptions
+      responses:
+        '204':
+          description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
 
   /factura/{vehiculoId}:
     parameters:
@@ -115,7 +165,17 @@ paths:
                 $ref: '#/components/schemas/Factura'
         '404':
           $ref: '#/components/responses/Response_404'
-
+    options:
+      tags: [ '🧾 Factura' ]
+      summary: Proporciona la lista de los métodos HTTP soportados.
+      description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
+      operationId: upm_aos_factura_voptions
+      responses:
+        '204':
+          description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
   /factura/{userId}:
     parameters:
       - $ref: '#/components/parameters/userId'
@@ -136,6 +196,17 @@ paths:
                 $ref: '#/components/schemas/Factura'
         '404':
           $ref: '#/components/responses/Response_404'
+    options:
+      tags: [ '🧾 Factura' ]
+      summary: Proporciona la lista de los métodos HTTP soportados.
+      description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
+      operationId: upm_aos_factura_uoptions
+      responses:
+        '204':
+          description: 'cabecera `Allow` &lt;El cuerpo de la respuesta está vacío&gt;'
+          headers:
+            Allow:
+              $ref: '#/components/headers/Allow'
 
 components:
   schemas:
@@ -201,6 +272,28 @@ components:
       schema:
         type: integer
         pattern: ^\d+$
+
+  requestBodies:
+    facturaRB:
+      description: '`Factura` data'
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - importe
+              - importeIVA
+            properties:
+              importe:
+                description: Importe de la factura sin IVA
+                type: number
+              importeIVA:
+                description: Importe de la factura con IVA
+                type: number
+            example:
+              importe: 237.98
+              importeIVA: 287.96
   
   responses:
     Response_404:
