@@ -1,0 +1,120 @@
+###
+# GET 200
+GET http://127.0.0.1:80/api/v1/factura
+Accept: application/json
+
+###
+# GET 200 (dinámico)
+GET http://127.0.0.1:80/api/v1/factura?__dynamic=true
+Accept: application/json
+
+###
+# GET 404
+GET http://127.0.0.1:80/api/v1/factura
+Pimporteer: code=404
+Accept: application/problem+json
+
+###
+# POST 201
+POST http://127.0.0.1:80/api/v1/factura
+Content-Type: application/json
+
+{
+    "importe": 200,
+    "importeIVA": 242
+}
+
+###
+# POST 201 (dinámico)
+POST http://127.0.0.1:80/api/v1/factura
+Pimporteer: dynamic=true
+Content-Type: application/json
+
+{
+    "importe": 200,
+    "importeIVA": 242
+}
+
+###
+# POST 422
+POST http://127.0.0.1:80/api/v1/factura
+Pimporteer: code=422
+Content-Type: application/json
+
+{
+    "Ximporte": 200,
+    "importeIVA": 242
+}
+
+###
+# POST 201 (dinámico)
+POST http://127.0.0.1:80/api/v1/factura
+Prefer: dynamic=true
+Content-Type: application/json
+
+{}
+
+###
+# OPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/factura
+Content-Type: application/json
+
+###
+# FGET 200
+GET http://127.0.0.1:80/api/v1/factura/1111
+Accept: application/json
+
+###
+# FGET 200 (dinámico)
+GET http://127.0.0.1:80/api/v1/factura/1111?__dynamic=true
+Accept: application/json
+
+###
+# FGET ERROR 422 (validación parámetros)
+GET http://127.0.0.1:80/api/v1/factura/abcd
+Accept: application/json
+
+###
+# FOPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/factura/1111
+Content-Type: application/json
+
+###
+# VGET 200
+GET http://127.0.0.1:80/api/v1/factura/2222
+Accept: application/json
+
+###
+# VGET 200 (dinámico)
+GET http://127.0.0.1:80/api/v1/factura/2222?__dynamic=true
+Accept: application/json
+
+###
+# VGET ERROR 422 (validación parámetros)
+GET http://127.0.0.1:80/api/v1/factura/abcd
+Accept: application/json
+
+###
+# VOPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/factura/2222
+Content-Type: application/json
+
+###
+# UGET 200
+GET http://127.0.0.1:80/api/v1/factura/3333
+Accept: application/json
+
+###
+# UGET 200 (dinámico)
+GET http://127.0.0.1:80/api/v1/factura/3333?__dynamic=true
+Accept: application/json
+
+###
+# UGET ERROR 422 (validación parámetros)
+GET http://127.0.0.1:80/api/v1/factura/abcd
+Accept: application/json
+
+###
+# UOPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/factura/3333
+Content-Type: application/json
