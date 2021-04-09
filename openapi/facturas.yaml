@@ -55,7 +55,7 @@ paths:
     post:
       tags: [ '🧾 Factura' ]
       summary: Genera la factura de un usuario
-      description: Genera la factura de un usuario previamente identificado.
+      description: Genera la factura con un conjunto de trabajos y un importe.
       operationId: upm_aos_factura_post
       # requestBody:
       #  description: El cuerpo de la petición está vacío
@@ -182,7 +182,7 @@ paths:
     get:
       tags: [ '🧾 Factura' ]
       summary: Obtiene todas las facturas de un usuario
-      description: Obtiene todas las facturas de un vehiculo por su userId
+      description: Obtiene todas las facturas de un usuario por su userId
       operationId: upm_aos_factura_uget
       responses:
         '200':
@@ -267,7 +267,7 @@ components:
     userId:
       name: userId
       in: path
-      description: ID del cliente
+      description: ID del usuario
       required: true
       schema:
         type: integer
