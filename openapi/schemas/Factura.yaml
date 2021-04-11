@@ -25,11 +25,11 @@ Factura:
             #El formato date tiene un patron "YYYY-MM-DD"
         importe:
             description: Importe total
-            readOnly: true
+            readOnly: false
             type: number
         importeIVA:
             description: Importe con IVA
-            readOnly: true
+            readOnly: false
             type: number
         links:
             description: Listado de trabajos
