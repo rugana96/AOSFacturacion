@@ -2,7 +2,13 @@
 Proyecto de la asignatura Arquitectura Orientada a Servicios (AOS) de la Universidad Politécnica de Madrid (UPM) que consiste en la especificación de una API para la implementación de un servicio de facturación de trabajos de un taller.
 
 ## Participantes 👨‍🎓
-  * Rubén Gago Navarro (r.gago@alumnos.upm.es)
+
+| Nombre | Email |
+| ------ | ------ |
+| Rubén Gago Navarro | r.gago@alumnos.upm.es |
+| José María Baroja Zapata | jm.baroja@alumnos.upm.es |
+| Ignacio García Pardina | ignacio.garcia.pardina@alumnos.upm.es |
+| David Ramajo Fernández | d.ramajo@alumnos.upm.es |
 
 ## Decisiones de diseño 🔧
 Para implementar el diseño, hemos utilizado diferentes fuentes, entre ellas las clases grabadas, el repositorio creado en clase con la especificación de comandas y el OpenAPI map.
@@ -25,21 +31,41 @@ Tal y como se ha enseñado en la asignatura, hemos separado la API en diferentes
     4. Busca todas las facturas de un vehículo por su vehiculoId. Ya que hemos pensado que puede ser interesante buscar todas las facturas de un vehículo.
 
 ## Despliegue 🚀
+Para el despliegue basta con utilizar el docker-compose que se encuentra en el directorio root del proyecto.
+1. Ejecutamos en la consola
+
+	```docker-compose.exe up```
+	
+2. Vamos al navegador y escribimos:
+	* 127.0.0.1:4010/factura para abrir Caddy
+	* 127.0.0.1:80 para abrir el editor de swagger/frontend
+
+## Consideraciones 💡
 Para desarrollar la API hemos probado varias herramientas, finalmente decidimos usar el editor de swagger y stoplight.
 Para crear una imagen docker de Swagger editor:
 
 1. Abrir la aplicación de docker para escritorio
 2. Pull de la imagen:
-	docker pull swaggerapi/swagger-editor
+	
+	```docker pull swaggerapi/swagger-editor```
+	
 3. Run contenedor:
-	docker run -d -p 80:8080 swaggerapi/swagger-editor
+	
+	```docker run -d -p 80:8080 swaggerapi/swagger-editor```
+	
 4. Abrir el navegador y escribir localhost o localhost:80
 
 Se pueden omitir los pasos 2 y 3 lanzando el siguiente script en la consola donde se utilice Docker. Este script se encuentra
 en el directorio root del proyecto.
-	./docker_swagger.sh
+
+```./docker_swagger.sh```
 
 Para parar la imagen:
-1. docker ps
+1. Abrir la lista de imagenes
+
+	```docker ps```
+	
 2. Copiar id de la imagen (Primer valor)
-3. docker stop id_imagen (id_imagen es el valor copiado en el paso 2)
+3. Parar la imagen
+	
+	```docker stop id_imagen``` (id_imagen es el valor copiado en el paso 2)
