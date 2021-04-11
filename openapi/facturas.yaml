@@ -57,8 +57,8 @@ paths:
       summary: Genera la factura de un usuario
       description: Genera la factura con un conjunto de trabajos y un importe.
       operationId: upm_aos_factura_post
-      # requestBody:
-      #  description: El cuerpo de la petición está vacío
+      requestBody:
+        $ref: '#/components/requestBodies/facturaPostRB'
       responses:
         '201':
           description: Factura
@@ -83,7 +83,7 @@ paths:
             Allow:
               $ref: '#/components/headers/Allow'
           
-  /factura/{facturaId}:
+  /factura/facturaId/{facturaId}:
     parameters:
       - $ref: '#/components/parameters/facturaId'
     get:
@@ -121,7 +121,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/ifMatchParam'
       requestBody:
-        $ref: '#/components/requestBodies/facturaRB'
+        $ref: '#/components/requestBodies/facturaPutRB'
       responses:
         '200':
           description: '`OK`: la factura ha sido modificada'
@@ -145,7 +145,7 @@ paths:
             Allow:
               $ref: '#/components/headers/Allow'
 
-  /factura/{vehiculoId}:
+  /factura/vehiculoId/{vehiculoId}:
     parameters:
       - $ref: '#/components/parameters/vehiculoId'
     get:
@@ -176,7 +176,7 @@ paths:
           headers:
             Allow:
               $ref: '#/components/headers/Allow'
-  /factura/{userId}:
+  /factura/userId/{userId}:
     parameters:
       - $ref: '#/components/parameters/userId'
     get:
@@ -274,7 +274,72 @@ components:
         pattern: ^\d+$
 
   requestBodies:
-    facturaRB:
+    facturaPostRB:
+      description: '`Factura` data'
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - facturaId
+              - userId
+              - vehiculoId
+              - fechaEmision
+              - importe
+              - importeIVA
+              - links
+            properties:
+                facturaId:
+                    description: Id Factura
+                    readOnly: true
+                    type: integer
+                    format: int32
+                userId:
+                    description: user Id
+                    readOnly: true
+                    type: integer
+                    format: int32
+                vehiculoId:
+                    description: Id vehiculo
+                    readOnly: true
+                    type: integer
+                    format: int32
+                fechaEmision:
+                    description: Fecha de creacion de la factura
+                    readOnly: true
+                    type: string
+                    format: date
+                    #El formato date tiene un patron "YYYY-MM-DD"
+                importe:
+                    description: Importe total
+                    readOnly: true
+                    type: number
+                importeIVA:
+                    description: Importe con IVA
+                    readOnly: true
+                    type: number
+                links:
+                    description: Listado de trabajos
+                    type: array
+                    items:
+                        $ref: './schemas/Link.yaml#/Link'
+            example:
+                facturaId: 34212
+                userId: 23
+                vehiculoId: 1234
+                fechaEmision: "2021-11-21"
+                importe: 590.45
+                importeIVA: 714.45
+                links:
+                    # - href: /api/v1/trabajo/iDTrabajo
+                    - href: /api/v1/trabajo/1111
+                      rel: trabajo
+                    - href: /api/v1/trabajo/1112
+                      rel: trabajo
+                    - href: /api/v1/trabajo/1113
+                      rel: trabajo
+    facturaPutRB:
       description: '`Factura` data'
       required: true
       content:
