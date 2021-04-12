@@ -36,20 +36,18 @@ Factura:
             type: array
             items:
                 $ref: './Link.yaml#/Link'
-        example:
-            facturaId: 34212
-            userId: 23
-            vehiculoId: 1234
-            fechaEmision: "2021-11-21"
-            importe: 590.45
-            importeIVA: 714.45
-            links:
-                # - href: /api/v1/trabajo/iDTrabajo
-                - href: /api/v1/trabajo/1111
-                  rel: trabajo
-                - href: /api/v1/trabajo/1112
-                  rel: trabajo
-                - href: /api/v1/trabajo/1113
-                  rel: trabajo
+    example:
+        facturaId: 5623
+        userId: 21
+        vehiculoId: 67
+        fechaEmision: "2021-03-29"
+        importe: 234
+        iporteIVA: 283.14
+        links:
+           # - href: /api/v1/trabajo/iDTrabajo
+           - href: api/v1/trabajo/1111
+             rel: trabajo
+           - href: api/v1/trabajo/1112
+             rel: trabajo
             
             
