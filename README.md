@@ -34,7 +34,7 @@ Tal y como se ha enseñado en la asignatura, hemos separado la API en diferentes
 Para el despliegue basta con utilizar el docker-compose que se encuentra en el directorio root del proyecto.
 1. Ejecutamos en la consola
 
-	```docker-compose.exe up```
+	```docker compose up```
 	
 2. Vamos al navegador y escribimos:
 	* 127.0.0.1:4010/factura para abrir Caddy
